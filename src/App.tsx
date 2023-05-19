@@ -4,6 +4,7 @@ import { createWorker } from "tesseract.js";
 import Uploader from "./Components/Uploader";
 import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import copyImage from "./assets/copy.png";
+import { isMobile } from 'react-device-detect';
 
 function App() {
   const [loading, setLoading] = useState<number>(0);
@@ -54,19 +55,19 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={isMobile?{}:{height:'100vh'}}>
       <Grid container spacing={5}>
         <Grid item xs={12}>
           <Typography variant="h1">OCR Online </Typography>
           <Typography variant="h2">convert image to text </Typography>
         </Grid>
-        <Grid item xs={2} />
-        <Grid item xs={3}>
+        {isMobile?<></>:<Grid item xs={2} />}
+        <Grid item xs={isMobile?12:3}>
           <Uploader imageData={imageData} handleChange={handleImageChange} handleUploadingFile={handleUploadingFile} />
         </Grid>
         <Grid
           item
-          xs={1}
+          xs={isMobile?12:1}
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -86,7 +87,7 @@ function App() {
             )
           }
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={isMobile?12:5}>
           <Box
             sx={{
               boxShadow: "inset 0 0 10px black",
@@ -125,7 +126,7 @@ function App() {
           </Box>
         </Grid>
 
-        <Grid item xs={1} />
+        {isMobile?<></>:<Grid item xs={1} />}
       </Grid>
     </div>
   );

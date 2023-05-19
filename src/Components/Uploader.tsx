@@ -75,7 +75,7 @@ function Uploader({
             <img
               src={typeof imageData === "string" ? imageData : ""}
               style={{
-                maxWidth: "27em",
+                maxWidth: "21em",
                 margin: "1em",
                 objectFit: "fill",
                 aspectRatio: "1/1",
