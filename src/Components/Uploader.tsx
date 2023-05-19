@@ -4,6 +4,7 @@ import image from "../assets/photo.png";
 import { ImageLike } from "tesseract.js";
 import { useState } from "react";
 import React from "react";
+import { isMobile } from "react-device-detect";
 
 const fileTypes = ["JPEG", "PNG", "JPG"];
 interface UploaderProps {
@@ -17,10 +18,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: isMobile ? 300 : 400,
   bgcolor: "background.paper",
-  border: "1px solid #000",
-  boxShadow: 24,
+  borderStyle: "solid",
+  borderWidth: ".2em",
+  borderColor: "	#2e2e2e",
+  boxShadow: "inset 0 0 10px black",
   p: 4,
 };
 
@@ -53,6 +56,7 @@ function Uploader({
         minSize={0}
         onSizeError={handleSizeError}
         onSelect={handleUploadingFile}
+        onDrop={handleUploadingFile}
       >
         <Box
           sx={{
