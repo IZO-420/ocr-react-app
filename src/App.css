@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 100%;
   text-align: center;
+  height:100vh;
 }
 
 .App-logo {

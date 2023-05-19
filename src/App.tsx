@@ -7,14 +7,12 @@ import copyImage from "./assets/copy.png";
 
 function App() {
   const [loading, setLoading] = useState<number>(0);
+  const [uploading, setUploading] = useState<boolean>(false);
   const [ocr, setOcr] = useState("");
   const [imageData, setImageData] = useState<
     Tesseract.ImageLike | string | ArrayBuffer | null
   >();
 
-  useEffect(() => {
-    console.log("loading", loading);
-  }, [loading]);
   const convertImageToText = async () => {
     const worker = await createWorker({
       logger: (m) => {
@@ -34,7 +32,7 @@ function App() {
   };
 
   useEffect(() => {
-    setOcr("");
+    setUploading(false)
     convertImageToText();
   }, [imageData]);
 
@@ -50,6 +48,11 @@ function App() {
     reader.readAsDataURL(file);
   }
 
+  function handleUploadingFile(){
+    setOcr("");
+    setUploading(true)
+  }
+
   return (
     <div className="App">
       <Grid container spacing={5}>
@@ -59,7 +62,7 @@ function App() {
         </Grid>
         <Grid item xs={2} />
         <Grid item xs={3}>
-          <Uploader imageData={imageData} handleChange={handleImageChange} />
+          <Uploader imageData={imageData} handleChange={handleImageChange} handleUploadingFile={handleUploadingFile} />
         </Grid>
         <Grid
           item
@@ -77,6 +80,11 @@ function App() {
               <Typography>Loading</Typography>
             </>
           )}
+          {
+            uploading&&(
+              <CircularProgress  />
+            )
+          }
         </Grid>
         <Grid item xs={5}>
           <Box
